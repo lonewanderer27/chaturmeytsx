@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "chaturmeytsx",
+    "name": "Chat-Ur-Meyts",
     "slug": "chaturmeytsx",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "chaturmeytsx",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -13,9 +13,11 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/adaptive-icon/foreground.png",
+        "backgroundImage": "./assets/images/adaptive-icon/background.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.lonewanderer27.chaturmeytsx"
     },
     "web": {
       "bundler": "metro",
