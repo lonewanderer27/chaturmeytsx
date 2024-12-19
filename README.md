@@ -1,50 +1,64 @@
-# Welcome to your Expo app 👋
+# Chaturmates
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Welcome to your Expo app 👋
 
-## Get started
+This is an Expo project that uses Supabase for backend services, and a custom backend for recommendation.
 
-1. Install dependencies
+### Prerequisites
 
-   ```bash
-   npm install
-   ```
+Before you begin, ensure you have met the following requirements:
+- You have installed the latest version of Node.js and npm.
+- You can access services provided by Supabase on your network.
 
-2. Start the app
+### Running the Project
 
-   ```bash
-    npx expo start
-   ```
+To run this project, follow these steps:
 
-In the output, you'll find options to open the app in a
+1. Clone the repository
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+```
+git clone https://github.com/lonewanderer27/chaturmeytsx
+```
+
+2. Install the dependencies:
+```
+cd chaturmatesx
+npm install
+// or bun install if you are using bun
+```
+
+3. Create a .env file in the root directory of the project and add the following variables:
+```
+VITE_SUPABASE_ANON_KEY=<project_supabase_anon_key>
+VITE_SUPABASE_API_URL=<project_supabase_api_url>
+VITE_RECOMMEND_BACKEND=<project_recommend_backend_api_url>
+```
+
+Replace <your_supabase_anon_key>, <your_supabase_api_url>, <project_recommend_backend_api_url> with our actual keys and IDs.
+
+4. Enable USB Debugging in your Developer Options. Connect your PC to the phone using ADB.
+
+5. Start the android app:
+```
+npm run android-dev
+// or bun dev if you are using bun
+```
+The application should now be running in your phone via ADB.
+Please make sure that the recommend backend is running as well.
 
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Get a fresh project
+## Contributing to Chaturmates
 
-When you're ready, run:
+To contribute, follow these steps:
+1. Fork this repository to your github account.
+2. Create new branch: `git checkout -b <new_branch_name>`
+3. Make your changes and commit them: `git commit -m '<commit_message>'
+4. Push to the new branch and your new repository: `git push origin`
+5. Create the pull request in the original github repository.
 
-```bash
-npm run reset-project
-```
+### Contact
+If you want to contact me you can reach me at adrianejames27@gmail.com
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### License
+This project uses the GPL-v3 License.
