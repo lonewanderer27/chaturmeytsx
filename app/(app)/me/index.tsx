@@ -1,9 +1,9 @@
 import { Alert, StyleSheet, TouchableOpacity, View } from "react-native";
 import useSelfStudent from "@/lib/hooks/me/useSelfStudent";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { router, Stack } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Avatar, Card, Divider, Text, TopNavigationAction, Button, Icon, useTheme } from "@ui-kitten/components";
+import { Avatar, Card, Divider, Text, TopNavigationAction, Button, Icon, useTheme, Modal, Input } from "@ui-kitten/components";
 import React from "react";
 import useSelfFollowing from "@/lib/hooks/me/useSelfFollowing";
 import useSelfGroups from "@/lib/hooks/me/useSelfGroups";
@@ -15,6 +15,7 @@ import { ThemedScrollView } from "@/lib/components/ThemedScrollView";
 import { PersonIcon } from "@/lib/icons/ionic/PersonIcon";
 import { ThemedView } from "@/lib/components/ThemedView";
 import AvatarLarge from "@/lib/components/AvatarLarge";
+import { useFormik } from "formik";
 
 const styles = StyleSheet.create({
   card: {
@@ -40,6 +41,11 @@ export default function ScreenMe() {
       console.log("Me:\n", data)
     }
   }, [data, isLoading])
+
+  const handleEdit = () => {
+    console.log("button edit pressed")
+    router.push("/(app)/me/update");
+  }
 
   const handleRecommend = () => {
     console.log("button recommend pressed")
@@ -71,17 +77,33 @@ export default function ScreenMe() {
       <Stack.Screen
         options={{
           title: "Your Profile",
-          headerShadowVisible: false,
-          headerRight: () => (
-            <>
-              <TopNavigationAction onPress={handleRecommend} icon={() => <MaterialIcons name="redeem" size={28} />} />
-              <TopNavigationAction icon={() => <MaterialIcons name="edit" size={28} />} />
-            </>
-          )
+          headerShadowVisible: false
         }}
       />
       <View style={{ marginBottom: -70, zIndex: 1 }}>
-        <AvatarLarge avatar_url={data?.avatar_url} />
+        <AvatarLarge key={data?.avatar_url} avatar_url={data?.avatar_url} />
+        <View style={{
+          paddingLeft: 100,
+          marginTop: -40,
+        }}>
+          <TouchableOpacity
+            onPress={handleEdit}
+            disabled={isLoading}
+            style={{
+              marginHorizontal: "auto",
+              backgroundColor: "white",
+              borderRadius: 100,
+              padding: 5,
+            }}>
+            <Icon
+              name="create-outline"
+              style={{
+                height: 25,
+                width: 25,
+              }}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
       <Card style={{ ...styles.card, paddingTop: 50 }}>
         <View>
@@ -115,14 +137,14 @@ export default function ScreenMe() {
         </View>
       </Card>
       {data?.description && <Card style={styles.card}>
-        <View style={{ padding: 10 }}>
+        <TouchableOpacity style={{ padding: 10 }} onPress={handleEdit}>
           <Text category="h6" style={{ textAlign: 'center', fontWeight: "bold" }}>
             Bio
           </Text>
           <Text style={{ textAlign: 'center' }} appearance="hint">
             {data?.description ?? ""}
           </Text>
-        </View>
+        </TouchableOpacity>
       </Card>}
       {subjects && subjects.length > 0 && <Card style={styles.card}>
         <View>
@@ -137,17 +159,17 @@ export default function ScreenMe() {
                 text={string(subject.title.toLowerCase()).titleCase().truncate(35).s}
               />
             ))}
-            <MaterialChip
-              leftIcon={
-                <MaterialIcons
-                  style={{ margin: 2 }}
-                  name="add"
-                  size={20}
-                />}
-              text="Add Subject"
-              onPress={handleUpdateSubjects}
-            />
           </View>
+          <MaterialChip
+            leftIcon={
+              <MaterialIcons
+                style={{ margin: 2 }}
+                name="add"
+                size={20}
+              />}
+            text="Add Subject"
+            onPress={handleUpdateSubjects}
+          />
         </View>
       </Card>}
       {hobbies && hobbies.length > 0 &&
@@ -164,17 +186,17 @@ export default function ScreenMe() {
                   style={{ maxHeight: 500 }}
                 />
               ))}
-              <MaterialChip
-                leftIcon={
-                  <MaterialIcons
-                    style={{ margin: 2 }}
-                    name="add"
-                    size={20}
-                  />}
-                text="Add Hobby"
-                onPress={handleUpdateHobbies}
-              />
             </View>
+            <MaterialChip
+              leftIcon={
+                <MaterialIcons
+                  style={{ margin: 2 }}
+                  name="add"
+                  size={20}
+                />}
+              text="Add Hobby"
+              onPress={handleUpdateHobbies}
+            />
           </View>
         </Card>}
     </ThemedScrollView>

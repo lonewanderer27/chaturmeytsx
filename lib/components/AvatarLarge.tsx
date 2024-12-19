@@ -22,8 +22,9 @@ const AvatarLarge = (props: {
         <Avatar
           source={{ uri: props?.avatar_url }}
           style={{
-            height: 100,
-            width: 100,
+            height: 140,
+            width: 140,
+            margin: -20,
           }} /> :
         <Icon
           fill={theme["color-primary-100"]}
