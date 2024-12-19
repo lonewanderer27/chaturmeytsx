@@ -94,11 +94,11 @@ const index = () => {
         </View>
       </Card>
       {data?.description && <Card style={styles.card}>
-        <View>
-          <Text category="p1" style={{ fontWeight: "bold" }}>
+        <View style={{ padding: 10 }}>
+          <Text category="h6" style={{ textAlign: 'center', fontWeight: "bold" }}>
             Bio
           </Text>
-          <Text appearance="hint">
+          <Text style={{ textAlign: 'center' }} appearance="hint">
             {data?.description ?? ""}
           </Text>
         </View>
