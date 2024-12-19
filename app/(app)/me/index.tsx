@@ -67,7 +67,7 @@ export default function ScreenMe() {
   }
 
   return (
-    <ThemedScrollView style={{ padding: 20 }}>
+    <ThemedScrollView style={{ padding: 10 }}>
       <Stack.Screen
         options={{
           title: "Your Profile",

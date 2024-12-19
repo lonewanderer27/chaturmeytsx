@@ -54,7 +54,7 @@ export default function ScreenMeRecommend() {
   console.log("Recommend Groups:\n", data)
 
   return (
-    <ThemedScrollView style={{ padding: 20 }}>
+    <ThemedScrollView style={{ padding: 10 }}>
       <Stack.Screen
         options={{
           title: "",
