@@ -40,12 +40,12 @@ const index = () => {
 
   const handleFollowings = () => {
     console.log("button followings pressed")
-    router.push("/(app)/student/following");
+    router.push(`/(app)/student/${studentId}/following`);
   }
 
   const handleGroups = () => {
     console.log("button groups pressed")
-    router.push("/(app)/student/groups");
+    router.push(`/(app)/student/${studentId}/groups`);
   }
 
 
