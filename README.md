@@ -1,4 +1,4 @@
-# Chaturmates
+# Chat-Ur-Meyts X
 
 ## Welcome to your Expo app 👋
 
