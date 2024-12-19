@@ -78,7 +78,7 @@ const index = () => {
                 {followings?.length ?? 0}
               </Text>
               <Text style={{ textAlign: 'center' }} appearance="hint">
-                Following
+                Following{(followings?.length ?? 0) <= 1 ? "" : "s"}
               </Text>
             </>
           </TouchableOpacity>
@@ -88,7 +88,7 @@ const index = () => {
               {groups?.length ?? 0}
             </Text>
             <Text style={{ textAlign: 'center' }} appearance="hint">
-              Groups
+              Group{(groups?.length ?? 0) <= 1 ? "" : "s"}
             </Text>
           </TouchableOpacity>
         </View>
@@ -110,23 +110,32 @@ const index = () => {
           </Text>
           <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 10, marginLeft: -4 }}>
             {subjects.map(subject => (
-              <MaterialChip key={subject!.id} text={string(subject!.title.toLowerCase()).titleCase().s} />
+              <MaterialChip
+                key={subject?.id}
+                style={{ maxHeight: 500 }}
+                text={string(subject?.title.toLowerCase()).titleCase().truncate(35).s}
+              />
             ))}
           </View>
         </View>
       </Card>}
-      {hobbies && hobbies.length > 0 && <Card style={styles.card}>
-        <View>
-          <Text category="p1" style={{ fontWeight: "bold" }}>
-            HOBBIES
-          </Text>
-          <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 10, marginLeft: -4 }}>
-            {hobbies.filter(h => h !== null).map(hobby => (
-              <MaterialChip key={hobby!.id} text={hobby!.title} />
-            ))}
+      {hobbies && hobbies.length > 0 &&
+        <Card style={{ ...styles.card, marginBottom: 100 }}>
+          <View>
+            <Text category="p1" style={{ fontWeight: "bold" }}>
+              HOBBIES
+            </Text>
+            <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 10, marginLeft: -4 }}>
+              {hobbies.filter(h => h !== null).map(hobby => (
+                <MaterialChip
+                  key={hobby!.id}
+                  style={{ maxHeight: 500 }}
+                  text={string(hobby!.title.toLowerCase()).titleCase().truncate(35).s}
+                />
+              ))}
+            </View>
           </View>
-        </View>
-      </Card>}
+        </Card>}
     </ThemedScrollView>
   )
 }

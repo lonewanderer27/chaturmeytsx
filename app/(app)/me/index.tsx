@@ -99,7 +99,7 @@ export default function ScreenMe() {
                 {followings?.length ?? 0}
               </Text>
               <Text style={{ textAlign: 'center' }} appearance="hint">
-                Following
+                Following{(followings?.length ?? 0) <= 1 ? "" : "s"}
               </Text>
             </>
           </TouchableOpacity>
@@ -109,7 +109,7 @@ export default function ScreenMe() {
               {groups?.length ?? 0}
             </Text>
             <Text style={{ textAlign: 'center' }} appearance="hint">
-              Groups
+              Group{(groups?.length ?? 0) <= 1 ? "" : "s"}
             </Text>
           </TouchableOpacity>
         </View>
@@ -131,7 +131,11 @@ export default function ScreenMe() {
           </Text>
           <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 10, marginLeft: -4 }}>
             {subjects.map(subject => (
-              <MaterialChip key={subject.id} text={string(subject.title.toLowerCase()).titleCase().s} />
+              <MaterialChip
+                key={subject.id}
+                style={{ maxHeight: 500 }}
+                text={string(subject.title.toLowerCase()).titleCase().truncate(35).s}
+              />
             ))}
             <MaterialChip
               leftIcon={
@@ -146,28 +150,33 @@ export default function ScreenMe() {
           </View>
         </View>
       </Card>}
-      {hobbies && hobbies.length > 0 && <Card style={styles.card}>
-        <View>
-          <Text category="p1" style={{ fontWeight: "bold" }}>
-            HOBBIES
-          </Text>
-          <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 10, marginLeft: -4 }}>
-            {hobbies.map(hobby => (
-              <MaterialChip key={hobby.id} text={hobby.title} />
-            ))}
-            <MaterialChip
-              leftIcon={
-                <MaterialIcons
-                  style={{ margin: 2 }}
-                  name="add"
-                  size={20}
-                />}
-              text="Add Hobby"
-              onPress={handleUpdateHobbies}
-            />
+      {hobbies && hobbies.length > 0 &&
+        <Card style={{ ...styles.card, marginBottom: 100 }}>
+          <View>
+            <Text category="p1" style={{ fontWeight: "bold" }}>
+              HOBBIES
+            </Text>
+            <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 10, marginLeft: -4 }}>
+              {hobbies.map(hobby => (
+                <MaterialChip
+                  key={hobby.id}
+                  text={string(hobby!.title.toLowerCase()).titleCase().truncate(35).s}
+                  style={{ maxHeight: 500 }}
+                />
+              ))}
+              <MaterialChip
+                leftIcon={
+                  <MaterialIcons
+                    style={{ margin: 2 }}
+                    name="add"
+                    size={20}
+                  />}
+                text="Add Hobby"
+                onPress={handleUpdateHobbies}
+              />
+            </View>
           </View>
-        </View>
-      </Card>}
+        </Card>}
     </ThemedScrollView>
   )
 }

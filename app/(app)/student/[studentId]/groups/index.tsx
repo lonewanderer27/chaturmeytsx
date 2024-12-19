@@ -4,6 +4,7 @@ import Icon from '@react-native-vector-icons/ionicons';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import React from 'react'
 import useStudentGroups from '@/lib/hooks/student/useStudentGroups';
+import { ThemedView } from '@/lib/components/ThemedView';
 
 const renderItem = ({ item }: { item: GroupType, index: number }) => (
   <ListItem
@@ -26,7 +27,7 @@ const index = () => {
     <>
       <Stack.Screen
         options={{
-          title: "Your Groups",
+          title: "Their Groups",
           headerShadowVisible: false
         }}
       />

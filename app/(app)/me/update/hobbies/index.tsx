@@ -15,6 +15,7 @@ import React from "react";
 import { ThemedScrollView } from "@/lib/components/ThemedScrollView";
 import client from "@/lib/client";
 import { Flow } from "react-native-animated-spinkit";
+import string from "string";
 
 export const hobbiesValidationSchema = Yup.object().shape({
   hobbies: Yup.array().of(Yup.number().required()).required().min(5, "Select at least 5 interests"),
@@ -215,7 +216,7 @@ export default function ScreenMeHobbiesUpdate() {
           !selfHbbysQry.isFetching &&
           hobsSearch.length !== 0) && (
             <MaterialChip
-              text={`${hobsSearch}`}
+              text={string(hobsSearch).truncate(35).s}
               onPress={handleAddCustomHobby}
             />
           )}
@@ -230,7 +231,7 @@ export default function ScreenMeHobbiesUpdate() {
           newHobbies.map((h, i) => (
             <MaterialChip
               key={"userhobby" + i}
-              text={h.title}
+              text={string(h.title).truncate(35).s}
               onPress={() => toggleCustomHobbySelection(i)}
               textStyle={{ color: isCustomHobbySelected(i) ? "#004acd" : "initial" }}
             />
@@ -245,14 +246,14 @@ export default function ScreenMeHobbiesUpdate() {
             .map((h, i) => (
               <MaterialChip
                 key={"customhobby" + i}
-                text={h.title}
+                text={string(h.title).truncate(35).s}
                 textStyle={{ color: isHobbySelected(h.id) ? "#004acd" : "initial" }}
                 onPress={() => toggleHobbySelection(h.id)}
               />
             ))}
       </View>
 
-      <View>
+      <View style={{ marginBottom: 100 }}>
         {/* Hobbies from our database */}
         {(!hcqR.isLoading &&
           !hqR.isLoading &&
@@ -274,7 +275,7 @@ export default function ScreenMeHobbiesUpdate() {
                       .map((h) => (
                         <MaterialChip
                           key={"hobby" + h.id}
-                          text={h.title}
+                          text={string(h.title).truncate(35).s}
                           onPress={() => toggleHobbySelection(h.id)}
                           textStyle={{ color: isHobbySelected(h.id) ? "#004acd" : "initial" }}
                         />
