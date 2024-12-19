@@ -1,10 +1,12 @@
+import AvatarLarge from "@/lib/components/AvatarLarge"
 import { ThemedScrollView } from "@/lib/components/ThemedScrollView"
+import { ThemedView } from "@/lib/components/ThemedView"
 import useStudent from "@/lib/hooks/student/useStudent"
 import useStudentFollowing from "@/lib/hooks/student/useStudentFollowing"
 import useStudentGroups from "@/lib/hooks/student/useStudentGroups"
 import useStudentHobbies from "@/lib/hooks/student/useStudentHobbies"
 import useStudentSubjects from "@/lib/hooks/student/useStudentSubjects"
-import { Avatar, Card, Divider, Text } from "@ui-kitten/components"
+import { Avatar, Card, Divider, Icon, Text } from "@ui-kitten/components"
 import { router, Stack, useLocalSearchParams } from "expo-router"
 import React from "react"
 import { useEffect } from "react"
@@ -53,19 +55,12 @@ const index = () => {
     <ThemedScrollView style={{ padding: 20 }}>
       <Stack.Screen
         options={{
-          title: "",
+          title: "Student Profile",
           headerShadowVisible: false
         }}
       />
       <View style={{ marginBottom: -70, zIndex: 1 }}>
-        <Avatar
-          source={{ uri: data?.avatar_url ?? "https://i.pravatar.cc/300" }}
-          style={{
-            height: 120, width: 120, borderRadius: 100,
-            alignSelf: "center", marginTop: 20,
-            shadowColor: "black", shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 3.84,
-          }}
-        />
+        <AvatarLarge avatar_url={data?.avatar_url} />
       </View>
       <Card style={{ ...styles.card, paddingTop: 50 }}>
         <View>

@@ -3,7 +3,7 @@ import useSelfStudent from "@/lib/hooks/me/useSelfStudent";
 import { useEffect } from "react";
 import { router, Stack } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Avatar, Card, Divider, Text, TopNavigationAction, Button } from "@ui-kitten/components";
+import { Avatar, Card, Divider, Text, TopNavigationAction, Button, Icon, useTheme } from "@ui-kitten/components";
 import React from "react";
 import useSelfFollowing from "@/lib/hooks/me/useSelfFollowing";
 import useSelfGroups from "@/lib/hooks/me/useSelfGroups";
@@ -12,6 +12,9 @@ import useSelfSubjects from "@/lib/hooks/me/useSelfSubjects";
 import MaterialChip from "react-native-material-chip";
 import string from "string";
 import { ThemedScrollView } from "@/lib/components/ThemedScrollView";
+import { PersonIcon } from "@/lib/icons/ionic/PersonIcon";
+import { ThemedView } from "@/lib/components/ThemedView";
+import AvatarLarge from "@/lib/components/AvatarLarge";
 
 const styles = StyleSheet.create({
   card: {
@@ -67,7 +70,7 @@ export default function ScreenMe() {
     <ThemedScrollView style={{ padding: 20 }}>
       <Stack.Screen
         options={{
-          title: "",
+          title: "Your Profile",
           headerShadowVisible: false,
           headerRight: () => (
             <>
@@ -78,14 +81,7 @@ export default function ScreenMe() {
         }}
       />
       <View style={{ marginBottom: -70, zIndex: 1 }}>
-        <Avatar
-          source={{ uri: data?.avatar_url ?? "https://i.pravatar.cc/300" }}
-          style={{
-            height: 120, width: 120, borderRadius: 100,
-            alignSelf: "center", marginTop: 20,
-            shadowColor: "black", shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 3.84,
-          }}
-        />
+        <AvatarLarge avatar_url={data?.avatar_url} />
       </View>
       <Card style={{ ...styles.card, paddingTop: 50 }}>
         <View>

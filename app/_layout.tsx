@@ -5,12 +5,13 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import * as eva from '@eva-design/eva';
-import { ApplicationProvider } from '@ui-kitten/components'
+import { ApplicationProvider, IconRegistry } from '@ui-kitten/components'
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/lib/hooks/useColorScheme';
 import useSession from '@/lib/hooks/auth/useSession';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { IonIconsPack } from '@/lib/components/IonIcon';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -40,6 +41,7 @@ export default function RootLayout() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <IconRegistry icons={[IonIconsPack]} />
       <ApplicationProvider {...eva} theme={colorScheme === "dark" ? eva.dark : eva.light}>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <Stack>
