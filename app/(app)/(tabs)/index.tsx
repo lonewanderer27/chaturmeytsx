@@ -7,8 +7,11 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { TopNavigationAction } from '@ui-kitten/components';
 import { Tabs, router } from 'expo-router';
 import React from 'react';
+import useSelfStudent from '@/lib/hooks/me/useSelfStudent';
 
 export default function HomeScreen() {
+  const { data: student } = useSelfStudent();
+
   const handleSearch = async () => {
     router.push("/(app)/search")
   }
@@ -27,7 +30,12 @@ export default function HomeScreen() {
         options={{
           headerRight: () => (
             <>
-              <TopNavigationAction onPress={handleMe} icon={() => <MaterialIcons name="person" size={28} />} />
+              <TopNavigationAction onPress={handleMe} icon={
+                () => {
+                  if (student?.avatar_url) return <Image source={{ uri: student.avatar_url }} style={{ width: 28, height: 28, borderRadius: 14 }} />
+                  return <MaterialIcons name="account-circle" size={28} />
+                }}
+                />
               <TopNavigationAction onPress={handleSearch} icon={() => <MaterialIcons name="search" size={28} />} />
               <TopNavigationAction onPress={handleNotifications} icon={() => <MaterialIcons name="notifications" size={28} />} />
             </>
