@@ -1,4 +1,5 @@
 import AvatarLarge from "@/lib/components/AvatarLarge"
+import Chip from "@/lib/components/Chip"
 import { ThemedScrollView } from "@/lib/components/ThemedScrollView"
 import { ThemedView } from "@/lib/components/ThemedView"
 import useStudent from "@/lib/hooks/student/useStudent"
@@ -110,11 +111,9 @@ const index = () => {
           </Text>
           <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 10, marginLeft: -4 }}>
             {subjects.map(subject => (
-              <MaterialChip
-                key={subject?.id}
-                style={{ maxHeight: 500 }}
-                text={string(subject?.title.toLowerCase()).titleCase().truncate(35).s}
-              />
+              <Chip key={subject?.id}>
+                {string(subject?.title.toLowerCase()).titleCase().s}
+              </Chip>
             ))}
           </View>
         </View>
@@ -127,11 +126,9 @@ const index = () => {
             </Text>
             <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 10, marginLeft: -4 }}>
               {hobbies.filter(h => h !== null).map(hobby => (
-                <MaterialChip
-                  key={hobby!.id}
-                  style={{ maxHeight: 500 }}
-                  text={string(hobby!.title.toLowerCase()).titleCase().truncate(35).s}
-                />
+                <Chip key={hobby.id}>
+                  {string(hobby.title.toLowerCase()).titleCase().s}
+                </Chip>
               ))}
             </View>
           </View>
