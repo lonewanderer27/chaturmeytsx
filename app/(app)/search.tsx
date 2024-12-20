@@ -1,14 +1,17 @@
 import { searchAtom } from "@/lib/atoms";
+import client from "@/lib/client";
 import { ThemedScrollView } from "@/lib/components/ThemedScrollView";
 import { ThemedView } from "@/lib/components/ThemedView";
+import useSession from "@/lib/hooks/auth/useSession";
 import useSelfSearchHistory from "@/lib/hooks/me/useSelfSearchHistory";
+import useSelfStudent from "@/lib/hooks/me/useSelfStudent";
 import useSearchGroups from "@/lib/hooks/search/useSearchGroups";
 import useSearchStudent from "@/lib/hooks/search/useSearchStudent";
 import { GroupType, StudentType } from "@/lib/types/client";
 import { Tab, TabView, Input, Text, ListItem, List, Divider } from "@ui-kitten/components";
 import { router, Stack } from "expo-router";
 import { useAtom } from "jotai";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import MaterialChip from "react-native-material-chip";
 import { useDebounce } from "use-debounce";
@@ -17,12 +20,12 @@ const groupItem = ({ item }: { item: GroupType, index: number }) => (
   <ListItem
     title={`${item?.name ?? ""}`}
     description={`${item?.approx_members_count ?? ""} Members`}
-    // accessoryLeft={() => {
-    //   if (item?.avatar_url) {
-    //     return <Avatar source={{ uri: item.avatar_url }} size="48" />
-    //   }
-    //   return <Icon name="people-circle-outline" size={48} />
-    // }}
+  // accessoryLeft={() => {
+  //   if (item?.avatar_url) {
+  //     return <Avatar source={{ uri: item.avatar_url }} size="48" />
+  //   }
+  //   return <Icon name="people-circle-outline" size={48} />
+  // }}
   />
 )
 
@@ -54,9 +57,31 @@ export default function SearchScreen() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const shouldLoadComponent = (index: number): boolean => index === selectedIndex;
 
-  const { data: searchHistory } = useSelfSearchHistory();
+  const { data: searchHistory, refetch: sHRefetch } = useSelfSearchHistory();
   const { data: students } = useSearchStudent(debouncedSearch);
   const { data: groups } = useSearchGroups(debouncedSearch);
+
+  const { data: student } = useSelfStudent();
+
+  useEffect(() => {
+    if (debouncedSearch.length > 0) {
+      console.log("Search for: ", debouncedSearch);
+
+      (async () => {
+        await client
+          .from("search_history")
+          .upsert({
+            // @ts-ignore
+            query: debouncedSearch,
+            profile_id: student?.profile_id,
+            student_id: student?.id,
+          })
+
+        // update search history
+        await sHRefetch()
+      })();
+    }
+  }, [debouncedSearch])
 
   console.log("Students:\n", students)
 
@@ -83,6 +108,7 @@ export default function SearchScreen() {
               <MaterialChip
                 text={history.query}
                 key={index}
+                onPress={() => setSearch(history.query)}
               />)
             )}
           </ThemedView>
