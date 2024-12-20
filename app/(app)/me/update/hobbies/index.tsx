@@ -16,6 +16,7 @@ import { ThemedScrollView } from "@/lib/components/ThemedScrollView";
 import client from "@/lib/client";
 import { Flow } from "react-native-animated-spinkit";
 import string from "string";
+import Chip from "@/lib/components/Chip";
 
 export const hobbiesValidationSchema = Yup.object().shape({
   hobbies: Yup.array().of(Yup.number().required()).required().min(5, "Select at least 5 interests"),
@@ -215,10 +216,9 @@ export default function ScreenMeHobbiesUpdate() {
           !hqR.isLoading &&
           !selfHbbysQry.isFetching &&
           hobsSearch.length !== 0) && (
-            <MaterialChip
-              text={string(hobsSearch).truncate(35).s}
-              onPress={handleAddCustomHobby}
-            />
+            <Chip onPress={handleAddCustomHobby}>
+              {hobsSearch}
+            </Chip>
           )}
 
         {/* A custom hobby is a hobby that is not in the list of hobbies. 
@@ -229,12 +229,13 @@ export default function ScreenMeHobbiesUpdate() {
           !selfHbbysQry.isFetching &&
           hobsSearch.length == 0) &&
           newHobbies.map((h, i) => (
-            <MaterialChip
+            <Chip
               key={"userhobby" + i}
-              text={string(h.title).truncate(35).s}
               onPress={() => toggleCustomHobbySelection(i)}
-              textStyle={{ color: isCustomHobbySelected(i) ? "#004acd" : "initial" }}
-            />
+              status={isCustomHobbySelected(i) ? "info" : "basic"}
+            >
+              {h.title}
+            </Chip>
           ))}
 
         {/* Displays the custom hobbies of other users */}
@@ -244,12 +245,13 @@ export default function ScreenMeHobbiesUpdate() {
           filteredHobbies
             .filter((h) => h.category_id === null)
             .map((h, i) => (
-              <MaterialChip
-                key={"customhobby" + i}
-                text={string(h.title).truncate(35).s}
-                textStyle={{ color: isHobbySelected(h.id) ? "#004acd" : "initial" }}
+              <Chip
+                key={"customhobby" + h.id}
                 onPress={() => toggleHobbySelection(h.id)}
-              />
+                status={isHobbySelected(h.id) ? "info" : "basic"}
+              >
+                {h.title}
+              </Chip>
             ))}
       </View>
 
@@ -273,12 +275,19 @@ export default function ScreenMeHobbiesUpdate() {
                       .filter(h => h.category_id === hc.id)
                       .filter(h => h.title.length > 0)
                       .map((h) => (
-                        <MaterialChip
+                        // <MaterialChip
+                        //   key={"hobby" + h.id}
+                        //   text={string(h.title).truncate(35).s}
+                        //   onPress={() => toggleHobbySelection(h.id)}
+                        //   textStyle={{ color: isHobbySelected(h.id) ? "#004acd" : "initial" }}
+                        // />
+                        <Chip
                           key={"hobby" + h.id}
-                          text={string(h.title).truncate(35).s}
                           onPress={() => toggleHobbySelection(h.id)}
-                          textStyle={{ color: isHobbySelected(h.id) ? "#004acd" : "initial" }}
-                        />
+                          status={isHobbySelected(h.id) ? "info" : "basic"}
+                        >
+                          {h.title}
+                        </Chip>
                       ))}
                 </View>
               </View>
