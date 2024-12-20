@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, TouchableOpacity, useColorScheme, View } from "react-native";
 import useSelfStudent from "@/lib/hooks/me/useSelfStudent";
 import { useEffect, useState } from "react";
 import { router, Stack } from "expo-router";
@@ -16,6 +16,7 @@ import { PersonIcon } from "@/lib/icons/ionic/PersonIcon";
 import { ThemedView } from "@/lib/components/ThemedView";
 import AvatarLarge from "@/lib/components/AvatarLarge";
 import { useFormik } from "formik";
+import Chip from "@/lib/components/Chip";
 
 const styles = StyleSheet.create({
   card: {
@@ -153,23 +154,17 @@ export default function ScreenMe() {
           </Text>
           <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 10, marginLeft: -4 }}>
             {subjects.map(subject => (
-              <MaterialChip
-                key={subject.id}
-                style={{ maxHeight: 500 }}
-                text={string(subject.title.toLowerCase()).titleCase().truncate(35).s}
-              />
+              <Chip key={subject.id}>
+                {string(subject.title.toLowerCase()).titleCase().truncate(35).s}
+              </Chip>
             ))}
           </View>
-          <MaterialChip
-            leftIcon={
-              <MaterialIcons
-                style={{ margin: 2 }}
-                name="add"
-                size={20}
-              />}
-            text="Add Subject"
+          <Chip
             onPress={handleUpdateSubjects}
-          />
+            accessoryLeft={(props) => <Icon {...props} name="add" />}
+          >
+            Add Subject
+          </Chip>
         </View>
       </Card>}
       {hobbies && hobbies.length > 0 &&
@@ -180,24 +175,18 @@ export default function ScreenMe() {
             </Text>
             <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 10, marginLeft: -4 }}>
               {hobbies.map(hobby => (
-                <MaterialChip
-                  key={hobby.id}
-                  text={string(hobby!.title.toLowerCase()).titleCase().truncate(35).s}
-                  style={{ maxHeight: 500 }}
-                />
+                <Chip key={hobby.id}>
+                  {string(hobby.title.toLowerCase()).titleCase().truncate(35).s}
+                </Chip>
               ))}
             </View>
-            <MaterialChip
-              leftIcon={
-                <MaterialIcons
-                  style={{ margin: 2 }}
-                  name="add"
-                  size={20}
-                />}
-              text="Add Hobby"
-              onPress={handleUpdateHobbies}
-            />
           </View>
+          <Chip
+            onPress={handleUpdateHobbies}
+            accessoryLeft={(props) => <Icon {...props} name="add" />}
+          >
+            Add Hobby
+          </Chip>
         </Card>}
     </ThemedScrollView>
   )
