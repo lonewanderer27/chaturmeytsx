@@ -155,7 +155,7 @@ export default function ScreenMe() {
           <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 10, marginLeft: -4 }}>
             {subjects.map(subject => (
               <Chip key={subject.id}>
-                {string(subject.title.toLowerCase()).titleCase().truncate(35).s}
+                {string(subject.title.toLowerCase()).titleCase().s}
               </Chip>
             ))}
           </View>
@@ -176,7 +176,7 @@ export default function ScreenMe() {
             <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 10, marginLeft: -4 }}>
               {hobbies.map(hobby => (
                 <Chip key={hobby.id}>
-                  {string(hobby.title.toLowerCase()).titleCase().truncate(35).s}
+                  {string(hobby.title.toLowerCase()).titleCase().s}
                 </Chip>
               ))}
             </View>
